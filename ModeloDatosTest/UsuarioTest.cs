@@ -7,23 +7,35 @@ namespace ModeloDatosTest
     [TestClass]
     public class UsuarioTest
     {
+
+
         [TestMethod]
-        public void TestMethod1()
+        public void UsuarioTest()
         {
             int idUsuarioEsperado = 1;
             string nombreEsperado = "Oscar";
             string apellidosEsperado = "Fuentes Paniego";
             string emailEsperado = "oscar@gmail.com";
             string contraseñaEsperada = "@Contraseñasegura123";
+            string direccionPostal = "C/ Parralillos s/n";
+            DateTime hoy = DateTime.Now;
 
-            Usuario u = new Usuario(idUsuarioEsperado, nombreEsperado, apellidosEsperado, emailEsperado, contraseñaEsperada); Assert.Equals(idUsuario, u.idUsuario);
+            Usuario u = new Usuario(idUsuarioEsperado, nombreEsperado, apellidosEsperado, emailEsperado, contraseñaEsperada, direccionPostal); 
 
-            // Assert (Corregidos el casing y Assert.AreEqual)
-            Assert.AreEqual(idEsperado, u.IdUsuario, "El IdUsuario no se asignó correctamente.");
+            Assert.IsNotNull(u);
+            Assert.AreEqual(idUsuarioEsperado, u.IdUsuario, "El IdUsuario no se asignó correctamente.");
             Assert.AreEqual(nombreEsperado, u.Nombre, "El Nombre no se asignó correctamente.");
             Assert.AreEqual(apellidosEsperado, u.Apellidos, "El Apellidos no se asignó correctamente.");
             Assert.AreEqual(emailEsperado, u.Email, "El Email no se asignó correctamente.");
             Assert.AreEqual(contraseñaEsperada, u.Contraseña, "La Contraseña no se asignó correctamente.");
+            Assert.IsTrue(u.cuentaActiva, "La cuenta debería estar activa por defecto.");
+            Assert.IsTrue(u.ComprobarContraseña(contraseñaEsperada), "La contraseña no coincide.");
+            Assert.AreEqual(DateTime.MinValue, u.UltimoAcceso, "El UltimoAcceso debería ser DateTime.MinValue por defecto.");
+
+            //Comprobamos las fechas
+            Assert.AreEqual(hoy.AddDays(365), u.FechaCaducidadCuenta);
+            Assert.AreEqual(hoy.AddDays(365), u.FechaCaducidadContraseña);
+
         }
 
         [TestMethod]
