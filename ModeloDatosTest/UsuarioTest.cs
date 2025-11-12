@@ -22,7 +22,7 @@ namespace ModeloDatosTest
             hoy = DateTime.Now;
             u = new Usuario(idUsuario, nombre, apellidos, email, password, direccionPostal);
             // Código que se ejecuta antes de cada prueba
-            u.fechaCreacionPassword = hoy;
+            u.fechaCreacion = hoy;
             u.fechaCaducidadPassword = hoy.AddDays(365);
         }
 
@@ -41,10 +41,11 @@ namespace ModeloDatosTest
             Assert.IsTrue(u.cuentaActiva, "La cuenta debería estar activa por defecto.");
             Assert.AreEqual(DateTime.MinValue, u.ultimoAcceso, "El UltimoAcceso debería ser DateTime.MinValue por defecto.");
 
-            Assert.IsTrue(Math.Abs((u.fechaCreacionPassword - hoy).TotalSeconds) < 1, "FechaCreacion no es cercana a la fecha de hoy.");
+            Assert.IsTrue(Math.Abs((u.fechaCreacion - hoy).TotalSeconds) < 1, "FechaCreacion no es cercana a la fecha de hoy.");
             Assert.IsTrue(Math.Abs((u.fechaCaducidadPassword - hoy.AddDays(365)).TotalSeconds) < 1, "La FechaCaducidadContraseña no es 365 días después de hoy.");
         }
 
+        [TestMethod]
         public void GetYSet_ModificaPropiedadesCorrectamente()
         {
             string nuevoNombre = "Ana";
