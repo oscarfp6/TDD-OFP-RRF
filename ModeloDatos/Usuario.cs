@@ -6,7 +6,7 @@
         public string nombre;
         public string apellidos;
         public string email;
-        public string contraseña;
+        public string password;
         public string direccionPostal;
 
         public int IdUsuario
@@ -35,8 +35,8 @@
 
         public string Contraseña
         {
-            get { return contraseña; }
-            set { contraseña = value; }
+            get { return password; }
+            set { password = value; }
         }
 
         public string DireccionPostal
@@ -47,13 +47,13 @@
 
 
 
-        public Usuario(int idUsuario, string nombre, string apellidos, string email, string contraseña, string direccionPostal)
+        public Usuario(int idUsuario, string nombre, string apellidos, string email, string password, string direccionPostal)
         {
             this.idUsuario = idUsuario;
             this.nombre = nombre;
             this.apellidos = apellidos;
             this.email = email;
-            this.contraseña = contraseña;
+            this.password = password;
             this.direccionPostal = direccionPostal;
         }
     }
