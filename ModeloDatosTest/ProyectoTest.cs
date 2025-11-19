@@ -43,8 +43,7 @@ namespace ModeloDatosTest
             string nombreEsperado = "Proyecto Alpha";
             string prefijoEsperado = "PA";
 
-            // Act
-            // ¡ROJO! La clase Proyecto aún no existe
+
             Proyecto p = new Proyecto(idEsperado, nombreEsperado, prefijoEsperado, "Descripción", true, false);
 
             // Assert
