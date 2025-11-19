@@ -22,8 +22,8 @@ namespace ModeloDatosTest
             hoy = DateTime.Now;
             u = new Usuario(idUsuario, nombre, apellidos, email, password, direccionPostal);
             // Código que se ejecuta antes de cada prueba
-            u.fechaCreacion = hoy;
-            u.fechaCaducidadPassword = hoy.AddDays(365);
+            u.FechaCreacion = hoy;
+            u.FechaCaducidadPassword = hoy.AddDays(365);
         }
 
 
@@ -32,17 +32,17 @@ namespace ModeloDatosTest
         {
 
             Assert.IsNotNull(u, "El objeto Usuario no debe ser nulo.");
-            Assert.AreEqual(idUsuario, u.idUsuario, "El IdUsuario no se asignó correctamente.");
-            Assert.AreEqual(nombre, u.nombre, "El Nombre no se asignó correctamente.");
-            Assert.AreEqual(apellidos, u.apellidos, "El Apellidos no se asignó correctamente.");
-            Assert.AreEqual(email, u.email, "El Email no se asignó correctamente.");
-            Assert.AreEqual(password, u.password, "La Contraseña no se asignó correctamente.");
-            Assert.AreEqual(direccionPostal, u.direccionPostal, "La DireccionPostal no se asignó correctamente.");
-            Assert.IsTrue(u.cuentaActiva, "La cuenta debería estar activa por defecto.");
-            Assert.AreEqual(DateTime.MinValue, u.ultimoAcceso, "El UltimoAcceso debería ser DateTime.MinValue por defecto.");
+            Assert.AreEqual(idUsuario, u.IdUsuario, "El IdUsuario no se asignó correctamente.");
+            Assert.AreEqual(nombre, u.Nombre, "El Nombre no se asignó correctamente.");
+            Assert.AreEqual(apellidos, u.Apellidos, "El Apellidos no se asignó correctamente.");
+            Assert.AreEqual(email, u.Email, "El Email no se asignó correctamente.");
+            Assert.AreEqual(password, u.ComprobarPassword(password), "La Contraseña no se asignó correctamente.");
+            Assert.AreEqual(direccionPostal, u.DireccionPostal, "La DireccionPostal no se asignó correctamente.");
+            Assert.IsTrue(u.CuentaActiva, "La cuenta debería estar activa por defecto.");
+            Assert.AreEqual(DateTime.MinValue, u.UltimoAcceso, "El UltimoAcceso debería ser DateTime.MinValue por defecto.");
 
-            Assert.IsTrue(Math.Abs((u.fechaCreacion - hoy).TotalSeconds) < 1, "FechaCreacion no es cercana a la fecha de hoy.");
-            Assert.IsTrue(Math.Abs((u.fechaCaducidadPassword - hoy.AddDays(365)).TotalSeconds) < 1, "La FechaCaducidadContraseña no es 365 días después de hoy.");
+            Assert.IsTrue(Math.Abs((u.FechaCreacion - hoy).TotalSeconds) < 1, "FechaCreacion no es cercana a la fecha de hoy.");
+            Assert.IsTrue(Math.Abs((u.FechaCaducidadPassword - hoy.AddDays(365)).TotalSeconds) < 1, "La FechaCaducidadContraseña no es 365 días después de hoy.");
         }
 
         [TestMethod]
@@ -52,15 +52,15 @@ namespace ModeloDatosTest
             string nuevoEmail = "ana.perez@test.com";
             bool nuevoEstado = false;
 
-            u.nombre = nuevoNombre;
-            u.email = nuevoEmail;
-            u.cuentaActiva = nuevoEstado;
-            u.idUsuario = 99;
+            u.Nombre = nuevoNombre;
+            u.Email = nuevoEmail;
+            u.CuentaActiva = nuevoEstado;
+            u.IdUsuario = 99;
 
-            Assert.AreEqual(nuevoNombre, u.nombre, "El setter/getter de Nombre no funciona.");
-            Assert.AreEqual(nuevoEmail, u.email, "El setter/getter de Email no funciona.");
-            Assert.AreEqual(nuevoEstado, u.cuentaActiva, "El setter/getter de CuentaActiva no funciona.");
-            Assert.AreEqual(99, u.idUsuario, "El setter/getter de IdUsuario no funciona.");
+            Assert.AreEqual(nuevoNombre, u.Nombre, "El setter/getter de Nombre no funciona.");
+            Assert.AreEqual(nuevoEmail, u.Email, "El setter/getter de Email no funciona.");
+            Assert.AreEqual(nuevoEstado, u.CuentaActiva, "El setter/getter de CuentaActiva no funciona.");
+            Assert.AreEqual(99, u.IdUsuario, "El setter/getter de IdUsuario no funciona.");
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace ModeloDatosTest
             string passwordNueva = "NuevaContraseña456";
             bool resultado = u.CambiarPassword(password, passwordNueva);
             Assert.IsTrue(resultado, "Debería retornar TRUE al cambiar la contraseña con la anterior correcta.");
-            Assert.AreEqual(passwordNueva, u.Contraseña, "La contraseña no fue actualizada.");
+            Assert.AreEqual(passwordNueva, u.ComprobarPassword(passwordNueva), "La contraseña no fue actualizada.");
         }
 
         [TestMethod]
@@ -90,7 +90,7 @@ namespace ModeloDatosTest
             string contraseñaNueva = "NuevaContraseña456";
             bool resultado = u.CambiarPassword("ContraseñaFalsa", contraseñaNueva);
             Assert.IsFalse(resultado, "Debería retornar FALSE al fallar la validación de la contraseña anterior.");
-            Assert.AreEqual(password, u.Contraseña, "La contraseña NO debería haber sido cambiada.");
+            Assert.AreEqual(password, u.ComprobarPassword(password), "La contraseña NO debería haber sido cambiada.");
         }
 
         [TestMethod]
@@ -104,7 +104,7 @@ namespace ModeloDatosTest
         public void EsValido_DatosIncompletosOInvalidos_RetornaFalse()
         {
             // Usuario con ID negativo (Inválido)
-            Usuario u1 = new Usuario(-1, nombre, apellidos, email, password, direccionPostal;
+            Usuario u1 = new Usuario(-1, nombre, apellidos, email, password, direccionPostal);
             Assert.IsFalse(u1.EsValido(), "ID negativo debería ser inválido.");
 
             // Usuario con Email vacío o nulo (Inválido)
@@ -121,10 +121,10 @@ namespace ModeloDatosTest
         {
             // Arrange
             DateTime tiempoDeAcceso = DateTime.Now.AddMinutes(5); // Simulamos un acceso posterior
-            u.ultimoAcceso = tiempoDeAcceso;
+            u.UltimoAcceso = tiempoDeAcceso;
 
             // Assert
-            Assert.IsTrue(Math.Abs((u.ultimoAcceso - tiempoDeAcceso).TotalSeconds) < 1, "UltimoAcceso no fue actualizado correctamente.");
+            Assert.IsTrue(Math.Abs((u.UltimoAcceso - tiempoDeAcceso).TotalSeconds) < 1, "UltimoAcceso no fue actualizado correctamente.");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiLogica.Utils;
+using System;
 using System.Globalization;
 
 namespace ModeloDatos

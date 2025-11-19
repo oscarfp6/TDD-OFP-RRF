@@ -5,5 +5,6 @@ namespace ModeloDatos
 {
     public class Rol
     {
+
     }
 }
