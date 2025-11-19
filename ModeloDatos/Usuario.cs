@@ -97,9 +97,6 @@ namespace ModeloDatos
                 return false;
             }
 
-            // 2. VALIDACIÓN:
-            //    - La contraseña actual debe ser correcta.
-            //    - La nueva contraseña debe cumplir las reglas de seguridad.
             if (!ComprobarPassword(passwordActual) || !Valid.ValidarPassword(nuevoPassword))
             {
                 return false;

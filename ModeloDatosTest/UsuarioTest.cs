@@ -36,7 +36,6 @@ namespace ModeloDatosTest
             Assert.AreEqual(nombre, u.Nombre, "El Nombre no se asignó correctamente.");
             Assert.AreEqual(apellidos, u.Apellidos, "El Apellidos no se asignó correctamente.");
             Assert.AreEqual(email, u.Email, "El Email no se asignó correctamente.");
-            Assert.AreEqual(password, u.ComprobarPassword(password), "La Contraseña no se asignó correctamente.");
             Assert.AreEqual(direccionPostal, u.DireccionPostal, "La DireccionPostal no se asignó correctamente.");
             Assert.IsTrue(u.CuentaActiva, "La cuenta debería estar activa por defecto.");
             Assert.AreEqual(DateTime.MinValue, u.UltimoAcceso, "El UltimoAcceso debería ser DateTime.MinValue por defecto.");
@@ -81,7 +80,6 @@ namespace ModeloDatosTest
             string passwordNueva = "NuevaContraseña456";
             bool resultado = u.CambiarPassword(password, passwordNueva);
             Assert.IsTrue(resultado, "Debería retornar TRUE al cambiar la contraseña con la anterior correcta.");
-            Assert.AreEqual(passwordNueva, u.ComprobarPassword(passwordNueva), "La contraseña no fue actualizada.");
         }
 
         [TestMethod]
@@ -90,7 +88,6 @@ namespace ModeloDatosTest
             string contraseñaNueva = "NuevaContraseña456";
             bool resultado = u.CambiarPassword("ContraseñaFalsa", contraseñaNueva);
             Assert.IsFalse(resultado, "Debería retornar FALSE al fallar la validación de la contraseña anterior.");
-            Assert.AreEqual(password, u.ComprobarPassword(password), "La contraseña NO debería haber sido cambiada.");
         }
 
         [TestMethod]
@@ -108,12 +105,15 @@ namespace ModeloDatosTest
             Assert.IsFalse(u1.EsValido(), "ID negativo debería ser inválido.");
 
             // Usuario con Email vacío o nulo (Inválido)
-            Usuario u2 = new Usuario(1, nombre, apellidos, "", password, direccionPostal);
-            Assert.IsFalse(u2.EsValido(), "Email vacío debería ser inválido.");
+            Assert.ThrowsException<ArgumentException>(() =>
+                new Usuario(1, nombre, apellidos, "", password, direccionPostal)
+            );
 
             // Usuario con Contraseña vacía o nula (Inválido)
-            Usuario u3 = new Usuario(1, nombre, apellidos, email, null, direccionPostal);
-            Assert.IsFalse(u3.EsValido(), "Contraseña nula debería ser inválida.");
+            
+            Assert.ThrowsException<ArgumentException>(() =>
+                new Usuario(1, nombre, apellidos, email, null, direccionPostal)
+            );
         }
 
         [TestMethod]

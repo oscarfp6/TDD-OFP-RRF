@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiLogica.Utils.Tests
+namespace ModeloDatosTest.Utils
 {
     [TestClass()]
     public class EncriptarTests

@@ -24,10 +24,10 @@ namespace ModeloDatos
         /// </summary>
         public Proyecto(int idProyecto, string nombre, string prefijo, string descripcion, bool activo, bool publico)
         {
-            this._idProyecto = idProyecto;
-            this._nombre = nombre;
-            this._prefijo = prefijo;
-            this._descripcion = descripcion;
+            this.IdProyecto = idProyecto;
+            this.Nombre = nombre;
+            this.Prefijo = prefijo;
+            this.Descripcion = descripcion;
 
             this.Activo = activo;
             this.Publico = publico;
