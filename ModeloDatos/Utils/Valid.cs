@@ -17,21 +17,23 @@ namespace MiLogica.Utils
         {
             // --- Reglas de Validación (Requisitos de Seguridad) ---
 
-            // Requisito 1: Longitud Mínima (12 caracteres).
+            // Requisito 1: No puede ser nula o vacía.
+            if (string.IsNullOrEmpty(password)) return false;
+            // Requisito 2: Longitud Mínima (12 caracteres).
             // Este es el primer filtro y una de las medidas más importantes contra ataques de fuerza bruta.
             if (password.Length < 12) return false;
 
-            // Requisito 2: Al menos una letra Mayúscula.
+            // Requisito 3: Al menos una letra Mayúscula.
             // Utiliza LINQ para comprobar si existe algún carácter que sea mayúscula.
             if (!password.Any(char.IsUpper)) return false;
 
-            // Requisito 3: Al menos una letra Minúscula.
+            // Requisito 4: Al menos una letra Minúscula.
             if (!password.Any(char.IsLower)) return false;
 
-            // Requisito 4: Al menos un Dígito numérico (0-9).
+            // Requisito 5: Al menos un Dígito numérico (0-9).
             if (!password.Any(char.IsDigit)) return false;
 
-            // Requisito 5: Al menos un Carácter Especial (no alfanumérico).
+            // Requisito 6: Al menos un Carácter Especial (no alfanumérico).
             // Comprueba si existe algún carácter que NO sea una letra o un dígito.
             if (!password.Any(ch => !char.IsLetterOrDigit(ch))) return false;
 
