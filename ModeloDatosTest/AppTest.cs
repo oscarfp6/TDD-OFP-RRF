@@ -158,8 +158,8 @@ namespace ModeloDatosTest
         /// Verifica que se añadan roles correctamente con diferentes datos.
         /// </summary>
         [DataTestMethod]
-        [DataRow("Proyecto A", "RolAdmin", 1)]
-        [DataRow("Proyecto B", "RolInvitado", 1)]
+        [DataRow("Proyecto A", "RolAdmin", true)]
+        [DataRow("Proyecto B", "RolInvitado", true)]
         public void DDT_AgregarParticipacion_VerificarConteo(string nombreProy, string nombreRol, int cantidadEsperada)
         {
             // Arrange
