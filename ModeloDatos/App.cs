@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ModeloDatos
 {
@@ -21,6 +22,8 @@ namespace ModeloDatos
         /// <param name="usuario">El usuario que se conecta.</param>
         public App(Usuario usuario)
         {
+            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
+
             this.UsuarioActivo = usuario;
             this.PermisosPorProyecto = new Dictionary<Proyecto, List<Permisos>>();
         }
