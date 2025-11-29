@@ -16,11 +16,11 @@ namespace ModeloDatosTest
         private Rol rolEditor;
         private Rol rolLector;
 
-        [ClassInitialize]
+        [TestInitialize()]
         public void TestInitialize()
         {
             // 1. Configuración de datos previos (Usuario, Rol, Proyecto)
-            usuario = new Usuario(1, "Laura", "Diaz", "laura@test.com", "@Pass1234", "Calle A");
+            usuario = new Usuario(1, "Laura", "Diaz", "laura@test.com", "@Pass123456789", "Calle A");
 
             rolEditor = new Rol("Editor", "Edita casos de prueba");
             rolEditor.AñadirPermiso(Permisos.VerCasosPrueba);
@@ -158,8 +158,8 @@ namespace ModeloDatosTest
         /// Verifica que se añadan roles correctamente con diferentes datos.
         /// </summary>
         [DataTestMethod]
-        [DataRow("Proyecto A", "RolAdmin", true)]
-        [DataRow("Proyecto B", "RolInvitado", true)]
+        [DataRow("Proyecto A", "RolAdmin", 1)]
+        [DataRow("Proyecto B", "RolInvitado", 1)]
         public void DDT_AgregarParticipacion_VerificarConteo(string nombreProy, string nombreRol, int cantidadEsperada)
         {
             // Arrange

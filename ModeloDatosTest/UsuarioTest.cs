@@ -77,7 +77,7 @@ namespace ModeloDatosTest
         [TestMethod]
         public void CambiarContraseña_True()
         {
-            string passwordNueva = "NuevaContraseña456";
+            string passwordNueva = "@NuevaContraseña456";
             bool resultado = u.CambiarPassword(password, passwordNueva);
             Assert.IsTrue(resultado, "Debería retornar TRUE al cambiar la contraseña con la anterior correcta.");
         }
